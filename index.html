@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <title>Title</title>
   <link rel="stylesheet" type="text/css" href="focusingjs.css" />
+  <link rel="stylesheet" type="text/css" href="nouislider.min.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.css" />
+  <style>
+      #fontSize-slider,#lineHeight-slider,#fontWeight-slider,#letterSpacing-slider,#width-slider {
+          height: 10px;
+      }
+      #slider-container .noUi-connect {
+          background: #17A34A;
+      }
+      #slider-container .noUi-handle {
+          height: 18px;
+          width: 18px;
+          top: -5px;
+          right: -9px; /* half the width */
+          border-radius: 9px;
+          background-color: #fafafa;
+          box-shadow: none;
+          border: 2px solid #17A34A;
+      }
+  </style>
 </head>
 
 <body>
@@ -25,22 +45,23 @@
   <div>
     <button onclick="handleClose()">close</button>
   </div>
-
-  <script src="focusingjs.js"></script>
-  <script>
-    const ref = new FocusingJs('#article')
-
-    function handleOpen() {
-      ref.open()
-    }
-
-    function handleClose() {
-      ref.close()
-    }
-  </script>
 </body>
 
+<link rel="preload" href="//at.alicdn.com/t/font_3143830_lxa3aooo1i.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_lxa3aooo1i.css">
 <focusing-js class="focusingjs-container">
+  <span class="iconfont icon-shezhi"></span>
+
+  <span
+      class="iconfont icon-close-circle"
+      style="position: absolute;left: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+  ></span>
+  <span
+      class="iconfont icon-setting"
+      style="position: absolute;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+      onclick="toggleEditShow('inline-block')"
+  ></span>
+
   <div class="main-container">
     <h1>出师表</h1>
 
@@ -100,26 +121,70 @@
     </p>
   </div>
 
-  <div class="edit-container">
-    <div class="label">主题色</div>
+  <div class="edit-container-mask" onclick="toggleEditShow('none')">
+  </div>
 
-    <div class="main-color-container">
-      <div onclick="changeBc(this, '#9DD2DC', '#333333')" class="block" style="background-color: #9DD2DC; color: #333333;">
-        <span style="color: #17A34A">-</span>
-      </div>
-      <div onclick="changeBc(this, '#F0D592', '#333333')" class="block" style="background-color: #F0D592; color: #333333;">Aa</div>
-      <div onclick="changeBc(this, '#D1BFEB', '#333333')" class="block" style="background-color: #D1BFEB; color: #333333;">Aa</div>
-      <div onclick="changeBc(this, '#FCF5ED', '#333333')" class="block" style="background-color: #FCF5ED; color: #333333;">Aa</div>
-      <div onclick="changeBc(this, '#F5F5F5', '#333333')" class="block" style="background-color: #F5F5F5; color: #333333;">Aa</div>
-      <div onclick="changeBc(this, '#363B3F', '#eeeeee')" class="block" style="background-color: #363B3F; color: #eeeeee;">Aa</div>
-      <div onclick="changeBc(this, '#222222', '#cccccc')" class="block" style="background-color: #222222; color: #cccccc;">Aa</div>
+  <div class="edit-container edit-container-enter-ani">
+    <div style="position: relative">
+      <span
+          class="iconfont icon-close"
+          style="position: absolute;right: 1.2rem;top: 1.2rem;font-size: 1.5rem;cursor: pointer"
+      ></span>
     </div>
 
-    <div class="label">行间距</div>
-    <div class="label">版面宽度</div>
-    <div class="label">字间距</div>
-    <div class="label">字体粗细</div>
+    <div class="main-color-wrapper">
+      <div class="label">主题色</div>
+      <div class="main-color-container">
+        <div onclick="changeBc(this, '#9DD2DC', '#333333')" class="block" style="background-color: #9DD2DC; color: #333333;">
+          <span style="color: #17A34A">-</span>
+        </div>
+        <div onclick="changeBc(this, '#F0D592', '#333333')" class="block" style="background-color: #F0D592; color: #333333;">Aa</div>
+        <div onclick="changeBc(this, '#D1BFEB', '#333333')" class="block" style="background-color: #D1BFEB; color: #333333;">Aa</div>
+        <div onclick="changeBc(this, '#FCF5ED', '#333333')" class="block" style="background-color: #FCF5ED; color: #333333;">Aa</div>
+        <div onclick="changeBc(this, '#F5F5F5', '#333333')" class="block" style="background-color: #F5F5F5; color: #333333;">Aa</div>
+        <div onclick="changeBc(this, '#363B3F', '#eeeeee')" class="block" style="background-color: #363B3F; color: #eeeeee;">Aa</div>
+        <div onclick="changeBc(this, '#222222', '#cccccc')" class="block" style="background-color: #222222; color: #cccccc;">Aa</div>
+      </div>
+    </div>
+
+    <div id="slider-container">
+      <div class="slider-item">
+        <div class="label">字体大小</div>
+        <div id="fontSize-slider"></div>
+      </div>
+      <div class="slider-item">
+        <div class="label">行间距</div>
+        <div id="lineHeight-slider"></div>
+      </div>
+      <div class="slider-item">
+        <div class="label">版面宽度</div>
+        <div id="width-slider"></div>
+      </div>
+      <div class="slider-item">
+        <div class="label">字间距</div>
+        <div id="letterSpacing-slider"></div>
+      </div>
+      <div class="slider-item">
+        <div class="label">字体粗细</div>
+        <div id="fontWeight-slider"></div>
+      </div>
+    </div>
+
   </div>
 </focusing-js>
+
+<script src="nouislider.js"></script>
+<script src="focusingjs.js"></script>
+<script>
+  const ref = new FocusingJs('#article')
+
+  function handleOpen() {
+    ref.open()
+  }
+
+  function handleClose() {
+    ref.close()
+  }
+</script>
 
 </html>

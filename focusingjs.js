@@ -117,12 +117,18 @@ class FocusingJs {
    * @param styleKey 修改样式
    * @param value 修改值
    */
-  static changeStyle (styleKey, value) {
+  changeStyle (styleKey, value) {
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
     this.focusingJs.style[styleKey] = value
+    console.log('a', this.styleObj)
     this.styleObj[styleKey] = value
   }
 }
+
+// 实例化
+const focusingJsIns = new FocusingJs('#article')
+
+// focusingJsIns.open()
 
 /**
  * 修改阅读背景色
@@ -131,8 +137,8 @@ class FocusingJs {
  * @param tc 文字颜色
  */
 function changeBc(el, bc, tc) {
-  FocusingJs.changeStyle('backgroundColor', bc)
-  FocusingJs.changeStyle('color', tc)
+  focusingJsIns.changeStyle('backgroundColor', bc)
+  focusingJsIns.changeStyle('color', tc)
 
   const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
   blocks.forEach(item => {
@@ -141,3 +147,39 @@ function changeBc(el, bc, tc) {
 
   el.innerHTML = `<span style="color: #17A34A">-</span>`
 }
+
+const lineHeightSlider = document.getElementById('lineHeight-slider'),
+  widthSlider = document.getElementById('width-slider'),
+  fontSizeSlider = document.getElementById('fontSize-slider'),
+  letterSpacingSlider = document.getElementById('letterSpacing-slider'),
+  fontWeightSlider = document.getElementById('fontWeight-slider')
+
+createSlider([lineHeightSlider, widthSlider, letterSpacingSlider, fontWeightSlider, fontSizeSlider], {
+  start: 0,
+  step: 20,
+  behaviour: 'snap',
+  connect: [true, false],
+  range: {
+    'min': 0,
+    'max': 100
+  }
+})
+
+function createSlider(eles, obj) {
+  eles.forEach(ele => {
+    noUiSlider.create(ele, obj);
+  })
+}
+
+function toggleEditShow(state) {
+  const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
+    editEle = document.querySelectorAll('focusing-js .edit-container')[0]
+
+  handle(state)
+
+  function handle(state) {
+    maskEle.style.display = state
+    editEle.style.display = state
+  }
+}
+

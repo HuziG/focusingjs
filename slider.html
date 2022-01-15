@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>nouSlider</title>
+  <link rel="stylesheet" type="text/css" href="nouislider.min.css" />
+  <style>
+      #slider-round {
+          height: 10px;
+      }
+
+      #slider-round .noUi-connect {
+          background: #17A34A;
+      }
+
+      #slider-round .noUi-handle {
+          height: 18px;
+          width: 18px;
+          top: -5px;
+          right: -9px; /* half the width */
+          border-radius: 9px;
+          background-color: #17A34A;
+          box-shadow: none;
+          border: none;
+      }
+  </style>
+</head>
+<body>
+<div class="slider-styled" id="slider-round"></div>
+</body>
+<script src="nouislider.js"></script>
+<script>
+  var slider = document.getElementById('slider-round');
+
+  noUiSlider.create(slider, {
+    start: 0,
+    step: 20,
+    behaviour: 'snap',
+    connect: [true, false],
+    range: {
+      'min': 0,
+      'max': 100
+    }
+  });
+</script>
+</html>

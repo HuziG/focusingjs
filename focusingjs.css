@@ -1,14 +1,22 @@
 focusing-js{
     position: absolute;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     left: 0;
     top: 0;
-    background-color: #F9AD3E;
+    background-color: #9DD2DC;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 3rem 0;
     transition: all .3s;
+}
+
+focusing-js .icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
 }
 
 focusing-js h1,h2,h3,h4,h5,h6{
@@ -21,26 +29,56 @@ focusing-js .main-container{
     margin: 0 auto;
 }
 
+@keyframes focusingJsSlideInRight {
+    from {
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 focusing-js .edit-container{
-    position: absolute;
+    position: fixed;
     z-index: 99999;
     right: 0;
     top: 0;
     background-color: #fafafa;
     width: 30%;
     height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.5rem;
+    box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
+    -webkit-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
+    -moz-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
+    animation: focusingJsSlideInRight;
+    animation-duration: .2s;
+}
+
+focusing-js .main-color-wrapper{
+    margin: 2.5rem 0;
+}
+
+focusing-js .edit-container-mask{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
 }
 
 focusing-js .edit-container .label{
-    color: #17A34A;
+    color: #333333;
     font-size: 1rem;
     line-height: 1.5rem;
-    margin-top: 1rem;
+    margin: 1rem 0;
     font-weight: 500;
-    margin-bottom: 0.5rem;
+}
+
+focusing-js .edit-container .slider-item{
+    margin-bottom: 2rem;
 }
 
 focusing-js .edit-container .main-color-container{
