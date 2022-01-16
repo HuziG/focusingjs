@@ -41,6 +41,7 @@ focusing-js .main-container{
 }
 
 focusing-js .edit-container{
+    display: none;
     position: fixed;
     z-index: 99999;
     right: 0;

@@ -4,16 +4,18 @@ class FocusingJs {
   constructor (id) {
     this.id = id
     this.styleObj = {
-      backgroundColor: '', // - 背景色
-      lineHeight: '', // - 行高
-      fontSize: '', // - 字体大小
-      color: '', // 字体颜色
-      letterSpacing: '', // - 字间距
-      width: '' // - 版幅宽度
+      backgroundColor: '',
+      lineHeight: '',
+      fontSize: '',
+      color: '',
+      letterSpacing: '',
+      fontWeight: '',
+      width: ''
     }
 
     // this.init()
 
+    this.checkLocalStyle()
     this.initSlider()
   }
 
@@ -52,38 +54,34 @@ class FocusingJs {
         }
       })
 
+      const lineHeightStep = { 0: '3rem', 20: '4rem', 40: '5rem', 60: '6rem', 80: '7rem', 100: '8rem' },
+        widthStep = { 0: '100%', 20: '90%', 40: '85%', 60: '80%', 80: '70%', 100: '60%' },
+        fontSizeStep = { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' },
+        letterSpacingStep = { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' },
+        fontWeightStep = { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 }
+
       const that = this
 
-      lineHeightSlider.noUiSlider.on('update', function(e) {
-        handleSetStyle(
-          'lineHeight',
-          e,
-          { 0: '3rem', 20: '4rem', 40: '5rem', 60: '6rem', 80: '7rem', 100: '8rem' }
-        )
+      setSliderStep(lineHeightSlider, this.styleObj.lineHeight ,lineHeightStep)
+      setSliderStep(widthSlider, this.styleObj.width, widthStep)
+      setSliderStep(fontSizeSlider, this.styleObj.fontSize, fontSizeStep)
+      setSliderStep(letterSpacingSlider, this.styleObj.letterSpacing, letterSpacingStep)
+      setSliderStep(fontWeightSlider, this.styleObj.fontWeight, fontWeightStep)
+
+      lineHeightSlider.noUiSlider.on('slide', function(e) {
+        handleSetStyle('lineHeight', e, lineHeightStep)
       });
-      widthSlider.noUiSlider.on('update', function(e) {
-        handleSetStyle(
-          'width',
-          e,
-          { 0: '100%', 20: '90%', 40: '85%', 60: '80%', 80: '70%', 100: '60%' }
-        )
+      widthSlider.noUiSlider.on('slide', function(e) {
+        handleSetStyle('width', e, widthStep)
       });
-      fontSizeSlider.noUiSlider.on('update', function(e) {
-        handleSetStyle(
-          'fontSize',
-          e,
-          { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' }
-        )
+      fontSizeSlider.noUiSlider.on('slide', function(e) {
+        handleSetStyle('fontSize', e, fontSizeStep)
       });
-      letterSpacingSlider.noUiSlider.on('update', function(e) {
-        handleSetStyle(
-          'letterSpacing',
-          e,
-          { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' }
-        )
+      letterSpacingSlider.noUiSlider.on('slide', function(e) {
+        handleSetStyle('letterSpacing', e, letterSpacingStep)
       });
-      fontWeightSlider.noUiSlider.on('update', function(e) {
-        handleSetStyle('fontWeight', e, { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 })
+      fontWeightSlider.noUiSlider.on('slide', function(e) {
+        handleSetStyle('fontWeight', e, fontWeightStep)
       });
 
       /**
@@ -106,6 +104,20 @@ class FocusingJs {
         eles.forEach(ele => {
           noUiSlider.create(ele, obj);
         })
+      }
+
+      /**
+       * 设置进度条进度
+       * @param slider 进度条实例
+       * @param e 值
+       * @param value 映射值
+       */
+      function setSliderStep(slider, e, value) {
+        const newValue = {}
+        for (let key in value) {
+          newValue[value[key]] = key
+        }
+        slider.noUiSlider.set(newValue[e]);
       }
     } catch (e) {
       console.error('initSlider', e)
@@ -146,6 +158,7 @@ class FocusingJs {
 
     if (localStyleData) {
       this.styleObj = checkValue(localStyleData)
+      this.setStyle()
     }
 
     const that = this
@@ -165,17 +178,23 @@ class FocusingJs {
           backgroundColor: value.backgroundColor,
           lineHeight: value.lineHeight,
           fontSize: value.fontSize,
+          fontWeight: value.fontWeight,
           color: value.color,
           letterSpacing: value.letterSpacing,
           width: value.width
         }
       } catch (e) {
-        // 清除本地存储
         localStorage.removeItem(FocusingJs.LOCALSTORAGE_KEY)
         returnValue = that.getDefaultStyle()
       }
 
       return returnValue
+    }
+  }
+
+  setStyle() {
+    for (let key in this.styleObj) {
+      this.changeStyle(key, this.styleObj[key])
     }
   }
 
@@ -185,12 +204,13 @@ class FocusingJs {
    */
   getDefaultStyle () {
     return {
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#D1BFEB',
       lineHeight: '8rem',
-      fontSize: '3rem',
+      fontSize: '2.5rem',
       color: '#333333',
       letterSpacing: '0.5rem',
-      width: '0 30%'
+      fontWeight: 500,
+      width: '85%'
     }
   }
 
