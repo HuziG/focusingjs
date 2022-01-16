@@ -3,10 +3,9 @@ class FocusingJs {
 
   constructor (id) {
     this.id = id
-
     this.styleObj = {
       backgroundColor: '', // - 背景色
-      lineHight: '', // - 行高
+      lineHeight: '', // - 行高
       fontSize: '', // - 字体大小
       color: '', // 字体颜色
       letterSpacing: '', // - 字间距
@@ -14,6 +13,8 @@ class FocusingJs {
     }
 
     // this.init()
+
+    this.initSlider()
   }
 
   init () {
@@ -28,6 +29,87 @@ class FocusingJs {
 
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
     this.focusingJsContainer = document.querySelectorAll('focusing-js .main-container')[0]
+
+    // this.initSlider()
+  }
+
+  initSlider() {
+    try{
+      const lineHeightSlider = document.querySelector('focusing-js #lineHeight-slider'),
+        widthSlider = document.querySelector('focusing-js #width-slider'),
+        fontSizeSlider = document.querySelector('focusing-js #fontSize-slider'),
+        letterSpacingSlider = document.querySelector('focusing-js #letterSpacing-slider'),
+        fontWeightSlider = document.querySelector('focusing-js #fontWeight-slider')
+
+      createSlider([lineHeightSlider, widthSlider, letterSpacingSlider, fontWeightSlider, fontSizeSlider], {
+        start: 0,
+        step: 20,
+        behaviour: 'snap',
+        connect: [true, false],
+        range: {
+          'min': 0,
+          'max': 100
+        }
+      })
+
+      const that = this
+
+      lineHeightSlider.noUiSlider.on('update', function(e) {
+        handleSetStyle(
+          'lineHeight',
+          e,
+          { 0: '3rem', 20: '4rem', 40: '5rem', 60: '6rem', 80: '7rem', 100: '8rem' }
+        )
+      });
+      widthSlider.noUiSlider.on('update', function(e) {
+        handleSetStyle(
+          'width',
+          e,
+          { 0: '100%', 20: '90%', 40: '85%', 60: '80%', 80: '70%', 100: '60%' }
+        )
+      });
+      fontSizeSlider.noUiSlider.on('update', function(e) {
+        handleSetStyle(
+          'fontSize',
+          e,
+          { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' }
+        )
+      });
+      letterSpacingSlider.noUiSlider.on('update', function(e) {
+        handleSetStyle(
+          'letterSpacing',
+          e,
+          { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' }
+        )
+      });
+      fontWeightSlider.noUiSlider.on('update', function(e) {
+        handleSetStyle('fontWeight', e, { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 })
+      });
+
+      /**
+       * 设置样式
+       * @param styleKey 样式名
+       * @param e 进度值
+       * @param value 样式映射值
+       */
+      function handleSetStyle(styleKey, e, value) {
+        e = Math.ceil(e[0])
+        that.changeStyle(styleKey, value[e])
+      }
+
+      /**
+       * 创建进度条实例
+       * @param eles 元素
+       * @param obj 进度条配置
+       */
+      function createSlider(eles, obj) {
+        eles.forEach(ele => {
+          noUiSlider.create(ele, obj);
+        })
+      }
+    } catch (e) {
+      console.error('initSlider', e)
+    }
   }
 
   /**
@@ -81,7 +163,7 @@ class FocusingJs {
       try {
         returnValue = {
           backgroundColor: value.backgroundColor,
-          lineHight: value.lineHight,
+          lineHeight: value.lineHeight,
           fontSize: value.fontSize,
           color: value.color,
           letterSpacing: value.letterSpacing,
@@ -99,12 +181,12 @@ class FocusingJs {
 
   /**
    * 获取默认样式
-   * @returns {{backgroundColor: string, color: string, lineHight: string, width: string, letterSpacing: string, fontSize: string}}
+   * @returns {{backgroundColor: string, color: string, lineHeight: string, width: string, letterSpacing: string, fontSize: string}}
    */
   getDefaultStyle () {
     return {
       backgroundColor: '#eeeeee',
-      lineHight: '8rem',
+      lineHeight: '8rem',
       fontSize: '3rem',
       color: '#333333',
       letterSpacing: '0.5rem',
@@ -118,10 +200,18 @@ class FocusingJs {
    * @param value 修改值
    */
   changeStyle (styleKey, value) {
-    this.focusingJs = document.querySelectorAll('focusing-js')[0]
-    this.focusingJs.style[styleKey] = value
-    console.log('a', this.styleObj)
+    let el
+    if (['backgroundColor', 'color'].includes(styleKey)) {
+      el = document.querySelectorAll('focusing-js')[0]
+    } else {
+      el = document.querySelectorAll('focusing-js .main-container')[0]
+    }
+    el.style[styleKey] = value
     this.styleObj[styleKey] = value
+  }
+
+  saveSetting () {
+    localStorage.setItem(FocusingJs.LOCALSTORAGE_KEY, JSON.stringify(this.styleObj))
   }
 }
 
@@ -148,29 +238,10 @@ function changeBc(el, bc, tc) {
   el.innerHTML = `<span style="color: #17A34A">-</span>`
 }
 
-const lineHeightSlider = document.getElementById('lineHeight-slider'),
-  widthSlider = document.getElementById('width-slider'),
-  fontSizeSlider = document.getElementById('fontSize-slider'),
-  letterSpacingSlider = document.getElementById('letterSpacing-slider'),
-  fontWeightSlider = document.getElementById('fontWeight-slider')
-
-createSlider([lineHeightSlider, widthSlider, letterSpacingSlider, fontWeightSlider, fontSizeSlider], {
-  start: 0,
-  step: 20,
-  behaviour: 'snap',
-  connect: [true, false],
-  range: {
-    'min': 0,
-    'max': 100
-  }
-})
-
-function createSlider(eles, obj) {
-  eles.forEach(ele => {
-    noUiSlider.create(ele, obj);
-  })
-}
-
+/**
+ * 切换控制显示与隐藏
+ * @param state 显示：inline-block 隐藏：none
+ */
 function toggleEditShow(state) {
   const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
     editEle = document.querySelectorAll('focusing-js .edit-container')[0]
@@ -181,5 +252,32 @@ function toggleEditShow(state) {
     maskEle.style.display = state
     editEle.style.display = state
   }
+
+  focusingJsIns.saveSetting()
 }
 
+/**
+ * 绑定进度条 change 事件
+ *
+ * 获取回调结果
+ *
+ * 设置样式 changeStyle
+ */
+
+/**
+ * 开启专注
+ *
+ * 获取本地配置信息
+ *  y 获取配置信息，设置样式
+ *  n 获取默认配置信息，设置样式
+ *
+ * 再次开启专注
+ */
+
+/**
+ * 退出专注模式
+ *
+ * 获取样式对象信息
+ *
+ * 缓存到本地
+ */
