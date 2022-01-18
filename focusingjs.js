@@ -1,3 +1,5 @@
+import { getTemplate } from './template'
+
 class FocusingJs {
   static LOCALSTORAGE_KEY = 'focusingjs_style'
 
@@ -13,19 +15,23 @@ class FocusingJs {
       width: ''
     }
 
-    // this.init()
-
-    this.checkLocalStyle()
+    this.init()
     this.initSlider()
+    this.checkLocalStyle()
   }
 
   init () {
     // 不存在容器
     if (document.querySelectorAll('focusingjs').length === 0) {
       const htmlDom = document.querySelectorAll('html')[0]
-      const newDiv = document.createElement("focusing-js")
-      newDiv.className = 'focusingjs-container'
-      newDiv.innerHTML = '<div class="main-container"></div>'
+
+      // const newDiv = document.createElement("focusing-js")
+      // newDiv.className = 'focusingjs-container'
+      // newDiv.innerHTML = '<div class="main-container"></div>'
+
+      const newDiv = document.createElement("div")
+      newDiv.innerHTML = getTemplate()
+
       htmlDom.appendChild(newDiv)
     }
 
@@ -235,11 +241,6 @@ class FocusingJs {
   }
 }
 
-// 实例化
-const focusingJsIns = new FocusingJs('#article')
-
-// focusingJsIns.open()
-
 /**
  * 修改阅读背景色
  * @param el 当前元素
@@ -300,4 +301,12 @@ function toggleEditShow(state) {
  * 获取样式对象信息
  *
  * 缓存到本地
+ */
+
+/**
+ * 20220117
+ *
+ * 头部菜单 fixed
+ *
+ * 字体方案
  */
