@@ -1,10 +1,10 @@
-# Install Plugin
+# install plugin
 
 ````
 npm install --save focusingjs
 ````
 
-# Use Plugin
+# use plugin
 
 ```
 import focusingjs from 'focusingjs'
@@ -18,3 +18,18 @@ ins.open()
 ins.close() 
 ```
 
+# docs
+
+发布教程：
+
+https://blog.csdn.net/u014302759/article/details/77946892
+
+npm 发布地址：
+
+https://www.npmjs.com/package/focusingjs
+
+# todos
+
+1. 正式版修整
+2. 文件组织
+3. 代码压缩

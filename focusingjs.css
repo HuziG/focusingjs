@@ -1,5 +1,23 @@
+#fontSize-slider,#lineHeight-slider,#fontWeight-slider,#letterSpacing-slider,#width-slider {
+    height: 10px;
+}
+#slider-container .noUi-connect {
+    background: #17A34A;
+}
+#slider-container .noUi-handle {
+    height: 18px;
+    width: 18px;
+    top: -5px;
+    right: -9px; /* half the width */
+    border-radius: 9px;
+    background-color: #fafafa;
+    box-shadow: none;
+    border: 2px solid #17A34A;
+}
+
 focusing-js{
-    display: none;
+    z-index: -1;
+    opacity: 0;
     position: absolute;
     width: 100%;
     min-height: 100vh;
@@ -10,6 +28,17 @@ focusing-js{
     overflow-x: hidden;
     padding: 3rem 0;
     transition: all .3s;
+}
+
+focusing-js .container-head{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 8rem;
+    padding: 2rem;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 focusing-js .icon {

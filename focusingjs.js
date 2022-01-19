@@ -1,4 +1,90 @@
-import { getTemplate } from './template'
+
+const template = `
+  <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
+      crossOrigin="anonymous">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.css">
+  <link rel="stylesheet" type="text/css" href="nouislider.min.css"/>
+  <focusing-js class="focusingjs-container">
+      <span
+        class="iconfont icon-arrowleft"
+        style="position: absolute;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        onClick="exitMode()"
+      ></span>
+      <span
+        class="iconfont icon-setting"
+        style="position: absolute;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        onClick="toggleEditShow('inline-block')"
+      ></span>
+
+      <div class="main-container heti heti--poetry"></div>
+
+      <div class="edit-container-mask" onClick="toggleEditShow('none')"></div>
+
+      <div class="edit-container edit-container-enter-ani">
+        <div style="position: relative">
+          <span
+            class="iconfont icon-close"
+            style="position: absolute;right: 1.2rem;top: 1.2rem;font-size: 1.5rem;cursor: pointer;color: #333333 !important;"
+            onClick="toggleEditShow('none')"
+          ></span>
+        </div>
+
+        <div class="main-color-wrapper">
+          <div class="label">主题色</div>
+          <div class="main-color-container">
+            <div onClick="changeBc(this, '#9DD2DC', '#333333')" class="block"
+                 style="background-color: #9DD2DC; color: #333333;">
+              <span style="color: #17A34A">-</span>
+            </div>
+            <div onClick="changeBc(this, '#F0D592', '#333333')" class="block"
+                 style="background-color: #F0D592; color: #333333;">Aa
+            </div>
+            <div onClick="changeBc(this, '#D1BFEB', '#333333')" class="block"
+                 style="background-color: #D1BFEB; color: #333333;">Aa
+            </div>
+            <div onClick="changeBc(this, '#FCF5ED', '#333333')" class="block"
+                 style="background-color: #FCF5ED; color: #333333;">Aa
+            </div>
+            <div onClick="changeBc(this, '#F5F5F5', '#333333')" class="block"
+                 style="background-color: #F5F5F5; color: #333333;">Aa
+            </div>
+            <div onClick="changeBc(this, '#363B3F', '#eeeeee')" class="block"
+                 style="background-color: #363B3F; color: #eeeeee;">Aa
+            </div>
+            <div onClick="changeBc(this, '#222222', '#cccccc')" class="block"
+                 style="background-color: #222222; color: #cccccc;">Aa
+            </div>
+          </div>
+        </div>
+
+        <div id="slider-container">
+          <div class="slider-item">
+            <div class="label">字体大小</div>
+            <div id="fontSize-slider"></div>
+          </div>
+          <div class="slider-item">
+            <div class="label">行间距</div>
+            <div id="lineHeight-slider"></div>
+          </div>
+          <div class="slider-item">
+            <div class="label">版面宽度</div>
+            <div id="width-slider"></div>
+          </div>
+          <div class="slider-item">
+            <div class="label">字间距</div>
+            <div id="letterSpacing-slider"></div>
+          </div>
+          <div class="slider-item">
+            <div class="label">字体粗细</div>
+            <div id="fontWeight-slider"></div>
+          </div>
+        </div>
+
+      </div>
+    </focusing-js>
+  `
+
+let curFocusingJsIns = null
 
 class FocusingJs {
   static LOCALSTORAGE_KEY = 'focusingjs_style'
@@ -16,33 +102,39 @@ class FocusingJs {
     }
 
     this.init()
-    this.initSlider()
     this.checkLocalStyle()
   }
 
   init () {
     // 不存在容器
     if (document.querySelectorAll('focusingjs').length === 0) {
+      this.insertJs()
       const htmlDom = document.querySelectorAll('html')[0]
-
-      // const newDiv = document.createElement("focusing-js")
-      // newDiv.className = 'focusingjs-container'
-      // newDiv.innerHTML = '<div class="main-container"></div>'
-
       const newDiv = document.createElement("div")
-      newDiv.innerHTML = getTemplate()
-
+      newDiv.innerHTML = template
       htmlDom.appendChild(newDiv)
     }
 
-    this.focusingJs = document.querySelectorAll('focusing-js')[0]
+    curFocusingJsIns = this
     this.focusingJsContainer = document.querySelectorAll('focusing-js .main-container')[0]
+    this.focusingJs = document.querySelectorAll('focusing-js')[0]
+  }
 
-    // this.initSlider()
+  insertJs() {
+    const head= document.getElementsByTagName('body')[0];
+    const script= document.createElement('script');
+    script.type= 'text/javascript';
+    script.src= 'nouislider.js';
+    script.onload = loadSlider
+    head.appendChild(script);
   }
 
   initSlider() {
+
+    console.log('initSlider')
+
     try{
+      const that = this
       const lineHeightSlider = document.querySelector('focusing-js #lineHeight-slider'),
         widthSlider = document.querySelector('focusing-js #width-slider'),
         fontSizeSlider = document.querySelector('focusing-js #fontSize-slider'),
@@ -65,8 +157,6 @@ class FocusingJs {
         fontSizeStep = { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' },
         letterSpacingStep = { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' },
         fontWeightStep = { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 }
-
-      const that = this
 
       setSliderStep(lineHeightSlider, this.styleObj.lineHeight ,lineHeightStep)
       setSliderStep(widthSlider, this.styleObj.width, widthStep)
@@ -126,7 +216,7 @@ class FocusingJs {
         slider.noUiSlider.set(newValue[e]);
       }
     } catch (e) {
-      console.error('initSlider', e)
+      console.error('initSlider error', e)
     }
   }
 
@@ -134,7 +224,8 @@ class FocusingJs {
    * 开启专注
    */
   open () {
-    // this.checkLocalStyle()
+    curFocusingJsIns = this
+
     this.toggleContainerShow('open')
     const content = document.querySelectorAll(this.id)[0]
     this.focusingJsContainer.innerHTML = content.innerHTML
@@ -144,7 +235,6 @@ class FocusingJs {
    * 关闭模式
    */
   close () {
-    // localStorage.setItem('focusingjs_style', this.styleObj)
     this.toggleContainerShow('close')
   }
 
@@ -153,7 +243,17 @@ class FocusingJs {
    * @param state 关闭: 'close' 开启: 'open'
    */
   toggleContainerShow(state) {
-    this.focusingJsContainer.style.opacity = state === 'close' ? '0' : '1'
+    const opacityValue = {
+      'close': 0,
+      'open': 1
+    }
+    const zIndexValue = {
+      'close': -1,
+      'open': 9999999
+    }
+    // this.focusingJsContainer.style.opacity = opacityValue[state]
+    this.focusingJs.style.opacity = opacityValue[state]
+    this.focusingJs.style.zIndex = zIndexValue[state]
   }
 
   /**
@@ -248,8 +348,8 @@ class FocusingJs {
  * @param tc 文字颜色
  */
 function changeBc(el, bc, tc) {
-  focusingJsIns.changeStyle('backgroundColor', bc)
-  focusingJsIns.changeStyle('color', tc)
+  curFocusingJsIns.changeStyle('backgroundColor', bc)
+  curFocusingJsIns.changeStyle('color', tc)
 
   const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
   blocks.forEach(item => {
@@ -274,7 +374,15 @@ function toggleEditShow(state) {
     editEle.style.display = state
   }
 
-  focusingJsIns.saveSetting()
+  curFocusingJsIns.saveSetting()
+}
+
+function loadSlider() {
+  curFocusingJsIns.initSlider()
+}
+
+function exitMode() {
+  curFocusingJsIns.close()
 }
 
 /**
@@ -293,14 +401,6 @@ function toggleEditShow(state) {
  *  n 获取默认配置信息，设置样式
  *
  * 再次开启专注
- */
-
-/**
- * 退出专注模式
- *
- * 获取样式对象信息
- *
- * 缓存到本地
  */
 
 /**
