@@ -9,9 +9,6 @@ use cdn
 ```
 // 引入 css
 <link rel="stylesheet" type="text/css" href="focusingjs.css"/>
-
-// 引入 js
-<script src="focusingjs.js"></script>
 ```
 
 # use plugin
