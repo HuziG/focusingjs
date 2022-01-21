@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/vue-plugin/node_modules
-/vue-plugin/src/node_modules
+/npm/node_modules
+/vue-project/node_modules
 /.pnp
 .pnp.js
 
