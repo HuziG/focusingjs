@@ -2601,9 +2601,11 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"focusingjs@file:../npm":
-  "resolved" "file:../npm"
+"focusingjs@file:../public-npm":
+  "resolved" "file:../public-npm"
   "version" "1.0.0"
+  dependencies:
+    "nouislider" "^15.5.0"
 
 "follow-redirects@^1.0.0":
   "integrity" "sha512-+hbxoLbFMbRKDwohX8GkTataGqO6Jb7jGwpAlwgy2bIz25XtRm7KEzJM76R1WiNT5SwZkX4Y75SwBolkpmE7iQ=="

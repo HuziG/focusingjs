@@ -27,7 +27,7 @@ focusing-js{
     opacity: 0;
     position: absolute;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     left: 0;
     top: 0;
     background-color: #9DD2DC;

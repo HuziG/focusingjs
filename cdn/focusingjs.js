@@ -3,16 +3,16 @@ const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
       crossOrigin="anonymous">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.css">
-  <link rel="stylesheet" type="text/css" href="./nouislider.min.css"/>
+  <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/noUiSlider/15.5.0/nouislider.min.css"/>
   <focusing-js class="focusingjs-container">
       <span
         class="iconfont icon-arrowleft"
-        style="position: absolute;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        style="position: fixed;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
         onClick="FocusingJsExitMode()"
       ></span>
       <span
         class="iconfont icon-setting"
-        style="position: absolute;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        style="position: fixed;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
         onClick="FocusingJsToggleEditShow('inline-block')"
       ></span>
 
@@ -124,7 +124,7 @@ class FocusingJs {
     const head= document.getElementsByTagName('body')[0];
     const script= document.createElement('script');
     script.type= 'text/javascript';
-    script.src= './nouislider.min.js';
+    script.src= 'https://cdn.bootcdn.net/ajax/libs/noUiSlider/15.5.0/nouislider.min.js';
     script.onload = FocusingJsLoadSlider
     head.appendChild(script);
   }

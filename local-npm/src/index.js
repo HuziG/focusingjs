@@ -9,12 +9,12 @@ const FocusingJsTemplate = `
   <focusing-js class="focusingjs-container">
       <span
         class="iconfont icon-arrowleft"
-        style="position: absolute;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        style="position: fixed;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
         onClick="top.FocusingJsExitMode()"
       ></span>
       <span
         class="iconfont icon-setting"
-        style="position: absolute;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
+        style="position: fixed;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
         onClick="top.FocusingJsToggleEditShow('inline-block')"
       ></span>
 
@@ -305,6 +305,8 @@ export default class FocusingJs {
     if (localStyleData) {
       this.styleObj = checkValue(localStyleData)
       this.setStyle()
+    } else {
+      this.styleObj = this.getDefaultStyle()
     }
 
     const that = this
@@ -374,5 +376,9 @@ export default class FocusingJs {
     }
     el.style[styleKey] = value
     this.styleObj[styleKey] = value
+  }
+
+  saveSetting () {
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.styleObj))
   }
 }

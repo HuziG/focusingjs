@@ -20,7 +20,7 @@ focusing-js{
     opacity: 0;
     position: absolute;
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     left: 0;
     top: 0;
     background-color: #9DD2DC;
@@ -92,6 +92,7 @@ focusing-js .main-color-wrapper{
 }
 
 focusing-js .edit-container-mask{
+    display: none;
     position: fixed;
     z-index: 9999;
     width: 100%;
