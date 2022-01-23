@@ -10,5 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "nouislider": "^15.5.0"
+  },
+  "devDependencies": {
   }
 }

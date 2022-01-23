@@ -1,58 +1,57 @@
-import * as noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.css';
 
 const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
       crossOrigin="anonymous">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.css">
+  <link rel="stylesheet" type="text/css" href="./nouislider.min.css"/>
   <focusing-js class="focusingjs-container">
       <span
         class="iconfont icon-arrowleft"
         style="position: absolute;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
-        onClick="top.FocusingJsExitMode()"
+        onClick="FocusingJsExitMode()"
       ></span>
       <span
         class="iconfont icon-setting"
         style="position: absolute;right: 1.5rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
-        onClick="top.FocusingJsToggleEditShow('inline-block')"
+        onClick="FocusingJsToggleEditShow('inline-block')"
       ></span>
 
       <div class="main-container heti heti--poetry"></div>
 
-      <div class="edit-container-mask" onClick="top.FocusingJsToggleEditShow('none')"></div>
+      <div class="edit-container-mask" onClick="FocusingJsToggleEditShow('none')"></div>
 
       <div class="edit-container edit-container-enter-ani">
         <div style="position: relative">
           <span
             class="iconfont icon-close"
             style="position: absolute;right: 1.2rem;top: 1.2rem;font-size: 1.5rem;cursor: pointer;color: #333333 !important;"
-            onClick="top.FocusingJsToggleEditShow('none')"
+            onClick="FocusingJsToggleEditShow('none')"
           ></span>
         </div>
 
         <div class="main-color-wrapper">
           <div class="label">主题色</div>
           <div class="main-color-container">
-            <div onClick="top.FocusingJsChangeBc(this, '#9DD2DC', '#333333')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#9DD2DC', '#333333')" class="block"
                  style="background-color: #9DD2DC; color: #333333;">
               <span style="color: #17A34A">-</span>
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#F0D592', '#333333')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#F0D592', '#333333')" class="block"
                  style="background-color: #F0D592; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#D1BFEB', '#333333')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#D1BFEB', '#333333')" class="block"
                  style="background-color: #D1BFEB; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#FCF5ED', '#333333')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#FCF5ED', '#333333')" class="block"
                  style="background-color: #FCF5ED; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#F5F5F5', '#333333')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#F5F5F5', '#333333')" class="block"
                  style="background-color: #F5F5F5; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#363B3F', '#eeeeee')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#363B3F', '#eeeeee')" class="block"
                  style="background-color: #363B3F; color: #eeeeee;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#222222', '#cccccc')" class="block"
+            <div onClick="FocusingJsChangeBc(this, '#222222', '#cccccc')" class="block"
                  style="background-color: #222222; color: #cccccc;">Aa
             </div>
           </div>
@@ -84,55 +83,11 @@ const FocusingJsTemplate = `
       </div>
     </focusing-js>
   `
-const LOCALSTORAGE_KEY = 'focusingjs_style'
 
-top.FocusingJsIns = null
+let curFocusingJsIns = null
 
-/**
- * 修改阅读背景色
- * @param el 当前元素
- * @param bc 背景色
- * @param tc 文字颜色
- */
-top.FocusingJsChangeBc = function (el, bc, tc) {
-  top.FocusingJsIns.changeStyle('backgroundColor', bc)
-  top.FocusingJsIns.changeStyle('color', tc)
-
-  const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
-  blocks.forEach(item => {
-    item.innerHTML = 'Aa'
-  })
-
-  el.innerHTML = `<span style="color: #17A34A">-</span>`
-}
-
-/**
- * 切换控制显示与隐藏
- * @param state 显示：inline-block 隐藏：none
- */
-top.FocusingJsToggleEditShow = function (state) {
-  const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
-    editEle = document.querySelectorAll('focusing-js .edit-container')[0]
-
-  handle(state)
-
-  function handle(state) {
-    maskEle.style.display = state
-    editEle.style.display = state
-  }
-
-  top.FocusingJsIns.saveSetting()
-}
-
-top.FocusingJsInit = function () {
-  top.FocusingJsIns.init()
-}
-
-top.FocusingJsExitMode = function () {
-  top.FocusingJsIns.close()
-}
-
-export default class FocusingJs {
+class FocusingJs {
+  static LOCALSTORAGE_KEY = 'focusingjs_style'
 
   constructor (id) {
     this.id = id
@@ -147,26 +102,31 @@ export default class FocusingJs {
     }
 
     this.init()
+    this.checkLocalStyle()
   }
 
   init () {
-    top.FocusingJsIns = this
-
     // 不存在容器
     if (document.querySelectorAll('focusingjs').length === 0) {
+      this.insertJs()
       const htmlDom = document.querySelectorAll('html')[0]
       const newDiv = document.createElement("div")
       newDiv.innerHTML = FocusingJsTemplate
       htmlDom.appendChild(newDiv)
-
-      this.checkLocalStyle()
-      setTimeout(() => {
-        this.initSlider()
-      }, 300)
     }
 
+    curFocusingJsIns = this
     this.focusingJsContainer = document.querySelectorAll('focusing-js .main-container')[0]
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
+  }
+
+  insertJs() {
+    const head= document.getElementsByTagName('body')[0];
+    const script= document.createElement('script');
+    script.type= 'text/javascript';
+    script.src= './nouislider.min.js';
+    script.onload = FocusingJsLoadSlider
+    head.appendChild(script);
   }
 
   initSlider() {
@@ -261,7 +221,7 @@ export default class FocusingJs {
    * 开启专注
    */
   open () {
-    top.FocusingJsIns = this
+    curFocusingJsIns = this
 
     this.toggleContainerShow('open')
     const content = document.querySelectorAll(this.id)[0]
@@ -280,26 +240,24 @@ export default class FocusingJs {
    * @param state 关闭: 'close' 开启: 'open'
    */
   toggleContainerShow(state) {
-    const mapValue = {
-      'close': {
-        'opacity': 0,
-        'zIndex': -1
-      },
-      'open': {
-        'opacity': 1,
-        'zIndex': 9999999
-      }
+    const opacityValue = {
+      'close': 0,
+      'open': 1
     }
-
-    this.focusingJs.style.opacity = mapValue[state].opacity
-    this.focusingJs.style.zIndex = mapValue[state].zIndex
+    const zIndexValue = {
+      'close': -1,
+      'open': 9999999
+    }
+    // this.focusingJsContainer.style.opacity = opacityValue[state]
+    this.focusingJs.style.opacity = opacityValue[state]
+    this.focusingJs.style.zIndex = zIndexValue[state]
   }
 
   /**
    检测本地样式存储
    */
   checkLocalStyle () {
-    const localStyleData = localStorage.getItem(LOCALSTORAGE_KEY)
+    const localStyleData = localStorage.getItem(FocusingJs.LOCALSTORAGE_KEY)
 
     if (localStyleData) {
       this.styleObj = checkValue(localStyleData)
@@ -329,7 +287,7 @@ export default class FocusingJs {
           width: value.width
         }
       } catch (e) {
-        localStorage.removeItem(LOCALSTORAGE_KEY)
+        localStorage.removeItem(FocusingJs.LOCALSTORAGE_KEY)
         returnValue = that.getDefaultStyle()
       }
 
@@ -374,4 +332,78 @@ export default class FocusingJs {
     el.style[styleKey] = value
     this.styleObj[styleKey] = value
   }
+
+  saveSetting () {
+    localStorage.setItem(FocusingJs.LOCALSTORAGE_KEY, JSON.stringify(this.styleObj))
+  }
 }
+
+/**
+ * 修改阅读背景色
+ * @param el 当前元素
+ * @param bc 背景色
+ * @param tc 文字颜色
+ */
+function FocusingJsChangeBc(el, bc, tc) {
+  curFocusingJsIns.changeStyle('backgroundColor', bc)
+  curFocusingJsIns.changeStyle('color', tc)
+
+  const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
+  blocks.forEach(item => {
+    item.innerHTML = 'Aa'
+  })
+
+  el.innerHTML = `<span style="color: #17A34A">-</span>`
+}
+
+/**
+ * 切换控制显示与隐藏
+ * @param state 显示：inline-block 隐藏：none
+ */
+function FocusingJsToggleEditShow(state) {
+  const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
+    editEle = document.querySelectorAll('focusing-js .edit-container')[0]
+
+  handle(state)
+
+  function handle(state) {
+    maskEle.style.display = state
+    editEle.style.display = state
+  }
+
+  curFocusingJsIns.saveSetting()
+}
+
+function FocusingJsLoadSlider() {
+  curFocusingJsIns.initSlider()
+}
+
+function FocusingJsExitMode() {
+  curFocusingJsIns.close()
+}
+
+/**
+ * 绑定进度条 change 事件
+ *
+ * 获取回调结果
+ *
+ * 设置样式 changeStyle
+ */
+
+/**
+ * 开启专注
+ *
+ * 获取本地配置信息
+ *  y 获取配置信息，设置样式
+ *  n 获取默认配置信息，设置样式
+ *
+ * 再次开启专注
+ */
+
+/**
+ * 20220117
+ *
+ * 头部菜单 fixed
+ *
+ * 字体方案
+ */
