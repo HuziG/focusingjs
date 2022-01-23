@@ -102,7 +102,6 @@ class FocusingJs {
     }
 
     this.init()
-    this.checkLocalStyle()
   }
 
   init () {
@@ -113,9 +112,13 @@ class FocusingJs {
       const newDiv = document.createElement("div")
       newDiv.innerHTML = FocusingJsTemplate
       htmlDom.appendChild(newDiv)
+
+      this.checkLocalStyle()
+      this.setStyle()
     }
 
     curFocusingJsIns = this
+
     this.focusingJsContainer = document.querySelectorAll('focusing-js .main-container')[0]
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
   }
@@ -149,8 +152,8 @@ class FocusingJs {
         }
       })
 
-      const lineHeightStep = { 0: '3rem', 20: '4rem', 40: '5rem', 60: '6rem', 80: '7rem', 100: '8rem' },
-        widthStep = { 0: '100%', 20: '90%', 40: '85%', 60: '80%', 80: '70%', 100: '60%' },
+      const lineHeightStep = { 0: '3rem', 20: '4.5rem', 40: '6rem', 60: '7.5rem', 80: '9rem', 100: '10rem' },
+        widthStep = { 0: '90%', 20: '80%', 40: '75%', 60: '70%', 80: '65%', 100: '60%' },
         fontSizeStep = { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' },
         letterSpacingStep = { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' },
         fontWeightStep = { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 }
@@ -261,7 +264,8 @@ class FocusingJs {
 
     if (localStyleData) {
       this.styleObj = checkValue(localStyleData)
-      this.setStyle()
+    } else {
+      this.styleObj = this.getDefaultStyle()
     }
 
     const that = this
@@ -295,6 +299,9 @@ class FocusingJs {
     }
   }
 
+  /**
+   * 设置样式
+   */
   setStyle() {
     for (let key in this.styleObj) {
       this.changeStyle(key, this.styleObj[key])
@@ -308,12 +315,12 @@ class FocusingJs {
   getDefaultStyle () {
     return {
       backgroundColor: '#D1BFEB',
-      lineHeight: '8rem',
+      lineHeight: '7.5rem',
       fontSize: '2.5rem',
       color: '#333333',
       letterSpacing: '0.5rem',
       fontWeight: 500,
-      width: '85%'
+      width: '80%'
     }
   }
 
