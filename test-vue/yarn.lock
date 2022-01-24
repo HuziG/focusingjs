@@ -2601,8 +2601,8 @@
     "inherits" "^2.0.3"
     "readable-stream" "^2.3.6"
 
-"focusingjs@file:../public-npm":
-  "resolved" "file:../public-npm"
+"focusingjs@file:../local-npm":
+  "resolved" "file:../local-npm"
   "version" "1.0.0"
   dependencies:
     "nouislider" "^15.5.0"

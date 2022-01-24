@@ -13,11 +13,11 @@ FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 ## 安装和使用
 
 ### npm
-- 安装
+安装
 ```
 npm i focusingjs --save
 ```
-- 使用
+使用
 ```js
 // 在 main.js 中引入 css 样式文件
 import 'focusingjs.min.css'

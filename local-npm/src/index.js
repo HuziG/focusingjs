@@ -1,6 +1,4 @@
-import * as noUiSlider from 'nouislider';
-import 'nouislider/dist/nouislider.min.css';
-import './focusingjs.min.css';
+const noUiSlider = require('nouislider')
 
 const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
@@ -87,44 +85,7 @@ const FocusingJsTemplate = `
   `
 const LOCALSTORAGE_KEY = 'focusingjs_style'
 
-top.FocusingJsIns = null
-
-top.FocusingJsChangeBc = function (el, bc, tc) {
-  top.FocusingJsIns.changeStyle('backgroundColor', bc)
-  top.FocusingJsIns.changeStyle('color', tc)
-
-  const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
-  blocks.forEach(item => {
-    item.innerHTML = 'Aa'
-  })
-
-  el.innerHTML = `<span style="color: #17A34A">-</span>`
-}
-
-top.FocusingJsToggleEditShow = function (state) {
-  const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
-    editEle = document.querySelectorAll('focusing-js .edit-container')[0]
-
-  handle(state)
-
-  function handle(state) {
-    maskEle.style.display = state
-    editEle.style.display = state
-  }
-
-  top.FocusingJsIns.saveSetting()
-}
-
-top.FocusingJsInit = function () {
-  top.FocusingJsIns.init()
-}
-
-top.FocusingJsExitMode = function () {
-  top.FocusingJsIns.close()
-}
-
-export default class FocusingJs {
-
+class FocusingJs {
   constructor (id) {
     this.id = id
     this.styleObj = {
@@ -137,7 +98,46 @@ export default class FocusingJs {
       width: ''
     }
 
+    this.initMethod()
     this.init()
+  }
+
+  initMethod() {
+    top.FocusingJsIns = null
+
+    top.FocusingJsChangeBc = function (el, bc, tc) {
+      top.FocusingJsIns.changeStyle('backgroundColor', bc)
+      top.FocusingJsIns.changeStyle('color', tc)
+
+      const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
+      blocks.forEach(item => {
+        item.innerHTML = 'Aa'
+      })
+
+      el.innerHTML = `<span style="color: #17A34A">-</span>`
+    }
+
+    top.FocusingJsToggleEditShow = function (state) {
+      const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
+        editEle = document.querySelectorAll('focusing-js .edit-container')[0]
+
+      handle(state)
+
+      function handle(state) {
+        maskEle.style.display = state
+        editEle.style.display = state
+      }
+
+      top.FocusingJsIns.saveSetting()
+    }
+
+    top.FocusingJsInit = function () {
+      top.FocusingJsIns.init()
+    }
+
+    top.FocusingJsExitMode = function () {
+      top.FocusingJsIns.close()
+    }
   }
 
   init () {
@@ -245,6 +245,11 @@ export default class FocusingJs {
     this.toggleContainerShow('close')
   }
 
+  // lockBody('') {
+  //   const body = document.querySelectorAll('body')[0]
+  //   body.style.overflow = 'hidden'
+  // }
+
   toggleContainerShow(state) {
     const mapValue = {
       'close': {
@@ -329,3 +334,5 @@ export default class FocusingJs {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.styleObj))
   }
 }
+
+module.exports = FocusingJs
