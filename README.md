@@ -5,8 +5,11 @@
 
 # 项目介绍
 
-FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源 [试试看](https://spacingjs.com)
-![](screenshot.png)
+FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源 
+
+[//]: # ([试试看]&#40;https://spacingjs.com&#41;)
+
+[//]: # (![]&#40;screenshot.png&#41;)
 
 兼容常见的 PC 浏览器：Chrome，Firefox，Safar，Edge，QQ 浏览器，IE11
 
@@ -47,9 +50,9 @@ fs.open()
 </script>  
 ```
 
-# 安装视频
-可以通过视频，更加直观地去学习使用
+[//]: # (# 安装视频)
 
+[//]: # (可以通过视频，更加直观地去学习使用)
 
 # 参与开发工作
-想加入合作，可申请添加作者QQ
+想加入合作，可在 issues 提出

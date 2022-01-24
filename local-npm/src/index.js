@@ -89,12 +89,6 @@ const LOCALSTORAGE_KEY = 'focusingjs_style'
 
 top.FocusingJsIns = null
 
-/**
- * 修改阅读背景色
- * @param el 当前元素
- * @param bc 背景色
- * @param tc 文字颜色
- */
 top.FocusingJsChangeBc = function (el, bc, tc) {
   top.FocusingJsIns.changeStyle('backgroundColor', bc)
   top.FocusingJsIns.changeStyle('color', tc)
@@ -107,10 +101,6 @@ top.FocusingJsChangeBc = function (el, bc, tc) {
   el.innerHTML = `<span style="color: #17A34A">-</span>`
 }
 
-/**
- * 切换控制显示与隐藏
- * @param state 显示：inline-block 隐藏：none
- */
 top.FocusingJsToggleEditShow = function (state) {
   const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
     editEle = document.querySelectorAll('focusing-js .edit-container')[0]
@@ -220,34 +210,17 @@ export default class FocusingJs {
         handleSetStyle('fontWeight', e, fontWeightStep)
       });
 
-      /**
-       * 设置样式
-       * @param styleKey 样式名
-       * @param e 进度值
-       * @param value 样式映射值
-       */
       function handleSetStyle(styleKey, e, value) {
         e = Math.ceil(e[0])
         that.changeStyle(styleKey, value[e])
       }
 
-      /**
-       * 创建进度条实例
-       * @param eles 元素
-       * @param obj 进度条配置
-       */
       function createSlider(eles, obj) {
         eles.forEach(ele => {
           noUiSlider.create(ele, obj);
         })
       }
 
-      /**
-       * 设置进度条进度
-       * @param slider 进度条实例
-       * @param e 值
-       * @param value 映射值
-       */
       function setSliderStep(slider, e, value) {
         const newValue = {}
         for (let key in value) {
@@ -260,9 +233,6 @@ export default class FocusingJs {
     }
   }
 
-  /**
-   * 开启专注
-   */
   open () {
     top.FocusingJsIns = this
 
@@ -271,17 +241,10 @@ export default class FocusingJs {
     this.focusingJsContainer.innerHTML = content.innerHTML
   }
 
-  /**
-   * 关闭模式
-   */
   close () {
     this.toggleContainerShow('close')
   }
 
-  /**
-   * 切换专注容器展示
-   * @param state 关闭: 'close' 开启: 'open'
-   */
   toggleContainerShow(state) {
     const mapValue = {
       'close': {
@@ -298,9 +261,6 @@ export default class FocusingJs {
     this.focusingJs.style.zIndex = mapValue[state].zIndex
   }
 
-  /**
-   检测本地样式存储
-   */
   checkLocalStyle () {
     const localStyleData = localStorage.getItem(LOCALSTORAGE_KEY)
 
@@ -312,11 +272,6 @@ export default class FocusingJs {
 
     const that = this
 
-    /**
-     * 检测存储数据完整性
-     * @param value 本地参数
-     * @returns {*} 设置样式属性值
-     */
     function checkValue (value) {
       value = JSON.parse(value)
 
@@ -347,10 +302,6 @@ export default class FocusingJs {
     }
   }
 
-  /**
-   * 获取默认样式
-   * @returns {{backgroundColor: string, color: string, lineHeight: string, width: string, letterSpacing: string, fontSize: string}}
-   */
   getDefaultStyle () {
     return {
       backgroundColor: '#D1BFEB',
@@ -363,11 +314,6 @@ export default class FocusingJs {
     }
   }
 
-  /**
-   * 修改样式
-   * @param styleKey 修改样式
-   * @param value 修改值
-   */
   changeStyle (styleKey, value) {
     let el
     if (['backgroundColor', 'color'].includes(styleKey)) {
