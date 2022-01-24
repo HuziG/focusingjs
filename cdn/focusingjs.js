@@ -388,29 +388,3 @@ function FocusingJsLoadSlider() {
 function FocusingJsExitMode() {
   curFocusingJsIns.close()
 }
-
-/**
- * 绑定进度条 change 事件
- *
- * 获取回调结果
- *
- * 设置样式 changeStyle
- */
-
-/**
- * 开启专注
- *
- * 获取本地配置信息
- *  y 获取配置信息，设置样式
- *  n 获取默认配置信息，设置样式
- *
- * 再次开启专注
- */
-
-/**
- * 20220117
- *
- * 头部菜单 fixed
- *
- * 字体方案
- */
