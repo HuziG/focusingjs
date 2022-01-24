@@ -40,9 +40,9 @@ fs.open()
 ### cdn
 
 ```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/HuziG/focusingjs/cdn/dist/focusingjs.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"/>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/HuziG/focusingjs/cdn/dist/focusingjs.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"></script>
 <script type="text/javascript">
 const fs = new FocusingJs('#id')
 
