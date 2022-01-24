@@ -1,8 +1,5 @@
 # FocusingJs
 
-<!-- Badge -->
-![MIT License](https://img.shields.io/badge/License-MIT-blue)
-
 # 项目介绍
 
 FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源 
@@ -32,6 +29,7 @@ import 'focusingjs.min.css'
 // 在需要调用的文件，引入 focusingjs
 import FocusingJs from 'focusingjs'
 
+// id 一定要 # !
 const fs = new FocusingJs('#id')
 
 fs.open()
@@ -44,6 +42,7 @@ fs.open()
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"></script>
 <script type="text/javascript">
+// id 一定要 # !
 const fs = new FocusingJs('#id')
 
 fs.open()
@@ -56,3 +55,7 @@ fs.open()
 
 # 参与开发工作
 想加入合作，可在 issues 提出
+
+### 之后 ......
+
+官方网站即将上线
