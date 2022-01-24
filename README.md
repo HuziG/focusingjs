@@ -1,8 +1,6 @@
-# FocusingJs
+## 项目介绍
 
-# 项目介绍
-
-FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源 
+FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 [//]: # ([试试看]&#40;https://spacingjs.com&#41;)
 
@@ -12,37 +10,42 @@ FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 暂不支持移动端，后续开放
 
-# 安装和使用
+## 安装和使用
 
 ### npm
-
+- 安装
 ```
 npm i focusingjs --save
 ```
-
-安装后
-
-```
+- 使用
+```js
 // 在 main.js 中引入 css 样式文件
 import 'focusingjs.min.css'
 
 // 在需要调用的文件，引入 focusingjs
 import FocusingJs from 'focusingjs'
 
-// id 一定要 # !
 const fs = new FocusingJs('#id')
 
 fs.open()
 ```
 
 ### cdn
+```html
+// 引入样式文件
+<link 
+    rel="stylesheet" 
+    type="text/css" 
+    href="https://cdn.jsdelivr.net/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"
+/>
 
-```
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"/>
+// 引入 js 文件
+<script 
+    type="text/javascript" 
+    src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"
+></script>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@master/cdn/dist/focusingjs.min.css"></script>
 <script type="text/javascript">
-// id 一定要 # !
 const fs = new FocusingJs('#id')
 
 fs.open()
@@ -52,10 +55,3 @@ fs.open()
 [//]: # (# 安装视频)
 
 [//]: # (可以通过视频，更加直观地去学习使用)
-
-# 参与开发工作
-想加入合作，可在 issues 提出
-
-### 之后 ......
-
-官方网站即将上线
