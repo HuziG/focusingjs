@@ -4,7 +4,7 @@ const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
       crossOrigin="anonymous">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.css">
-  <focusing-js class="focusingjs-container">
+  <focusing-js>
       <span
         class="iconfont icon-arrowleft"
         style="position: fixed;left: 2rem;top: 1.5rem;font-size: 2rem;cursor: pointer"
@@ -16,11 +16,11 @@ const FocusingJsTemplate = `
         onClick="top.FocusingJsToggleEditShow('inline-block')"
       ></span>
 
-      <div class="main-container heti heti--poetry"></div>
+      <div class="fs-main-container heti heti--poetry"></div>
 
-      <div class="edit-container-mask" onClick="top.FocusingJsToggleEditShow('none')"></div>
+      <div class="fs-edit-container-mask" onClick="top.FocusingJsToggleEditShow('none')"></div>
 
-      <div class="edit-container edit-container-enter-ani">
+      <div class="fs-edit-container">
         <div style="position: relative">
           <span
             class="iconfont icon-close"
@@ -29,54 +29,54 @@ const FocusingJsTemplate = `
           ></span>
         </div>
 
-        <div class="main-color-wrapper">
-          <div class="label">主题色</div>
-          <div class="main-color-container">
-            <div onClick="top.FocusingJsChangeBc(this, '#9DD2DC', '#333333')" class="block"
+        <div class="fs-main-color-wrapper">
+          <div class="fs-label">主题色</div>
+          <div class="fs-main-color-container">
+            <div onClick="top.FocusingJsChangeBc(this, '#9DD2DC', '#333333')" class="fs-block"
                  style="background-color: #9DD2DC; color: #333333;">
               <span style="color: #17A34A">-</span>
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#F0D592', '#333333')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#F0D592', '#333333')" class="fs-block"
                  style="background-color: #F0D592; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#D1BFEB', '#333333')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#D1BFEB', '#333333')" class="fs-block"
                  style="background-color: #D1BFEB; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#FCF5ED', '#333333')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#FCF5ED', '#333333')" class="fs-block"
                  style="background-color: #FCF5ED; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#F5F5F5', '#333333')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#F5F5F5', '#333333')" class="fs-block"
                  style="background-color: #F5F5F5; color: #333333;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#363B3F', '#eeeeee')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#363B3F', '#eeeeee')" class="fs-block"
                  style="background-color: #363B3F; color: #eeeeee;">Aa
             </div>
-            <div onClick="top.FocusingJsChangeBc(this, '#222222', '#cccccc')" class="block"
+            <div onClick="top.FocusingJsChangeBc(this, '#222222', '#cccccc')" class="fs-block"
                  style="background-color: #222222; color: #cccccc;">Aa
             </div>
           </div>
         </div>
 
-        <div id="slider-container">
-          <div class="slider-item">
-            <div class="label">字体大小</div>
-            <div id="fontSize-slider"></div>
+        <div id="fs-slider-container">
+          <div class="fs-slider-item">
+            <div class="fs-label">字体大小</div>
+            <div id="fs-fontSize-slider"></div>
           </div>
-          <div class="slider-item">
-            <div class="label">行间距</div>
-            <div id="lineHeight-slider"></div>
+          <div class="fs-slider-item">
+            <div class="fs-label">行间距</div>
+            <div id="fs-lineHeight-slider"></div>
           </div>
-          <div class="slider-item">
-            <div class="label">版面宽度</div>
-            <div id="width-slider"></div>
+          <div class="fs-slider-item">
+            <div class="fs-label">版面宽度</div>
+            <div id="fs-width-slider"></div>
           </div>
-          <div class="slider-item">
-            <div class="label">字间距</div>
-            <div id="letterSpacing-slider"></div>
+          <div class="fs-slider-item">
+            <div class="fs-label">字间距</div>
+            <div id="fs-letterSpacing-slider"></div>
           </div>
-          <div class="slider-item">
-            <div class="label">字体粗细</div>
-            <div id="fontWeight-slider"></div>
+          <div class="fs-slider-item">
+            <div class="fs-label">字体粗细</div>
+            <div id="fs-fontWeight-slider"></div>
           </div>
         </div>
 
@@ -109,7 +109,7 @@ class FocusingJs {
       top.FocusingJsIns.changeStyle('backgroundColor', bc)
       top.FocusingJsIns.changeStyle('color', tc)
 
-      const blocks = document.querySelectorAll('focusing-js .main-color-container .block')
+      const blocks = document.querySelectorAll('focusing-js .fs-main-color-container .fs-block')
       blocks.forEach(item => {
         item.innerHTML = 'Aa'
       })
@@ -118,8 +118,8 @@ class FocusingJs {
     }
 
     top.FocusingJsToggleEditShow = function (state) {
-      const maskEle = document.querySelectorAll('focusing-js .edit-container-mask')[0],
-        editEle = document.querySelectorAll('focusing-js .edit-container')[0]
+      const maskEle = document.querySelectorAll('focusing-js .fs-edit-container-mask')[0],
+        editEle = document.querySelectorAll('focusing-js .fs-edit-container')[0]
 
       handle(state)
 
@@ -158,18 +158,18 @@ class FocusingJs {
       }, 300)
     }
 
-    this.focusingJsContainer = document.querySelectorAll('focusing-js .main-container')[0]
+    this.focusingJsContainer = document.querySelectorAll('focusing-js .fs-main-container')[0]
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
   }
 
   initSlider() {
     try{
       const that = this
-      const lineHeightSlider = document.querySelector('focusing-js #lineHeight-slider'),
-        widthSlider = document.querySelector('focusing-js #width-slider'),
-        fontSizeSlider = document.querySelector('focusing-js #fontSize-slider'),
-        letterSpacingSlider = document.querySelector('focusing-js #letterSpacing-slider'),
-        fontWeightSlider = document.querySelector('focusing-js #fontWeight-slider')
+      const lineHeightSlider = document.querySelector('focusing-js #fs-lineHeight-slider'),
+        widthSlider = document.querySelector('focusing-js #fs-width-slider'),
+        fontSizeSlider = document.querySelector('focusing-js #fs-fontSize-slider'),
+        letterSpacingSlider = document.querySelector('focusing-js #fs-letterSpacing-slider'),
+        fontWeightSlider = document.querySelector('focusing-js #fs-fontWeight-slider')
 
       createSlider([lineHeightSlider, widthSlider, letterSpacingSlider, fontWeightSlider, fontSizeSlider], {
         start: 0,
@@ -332,7 +332,7 @@ class FocusingJs {
     if (['backgroundColor', 'color'].includes(styleKey)) {
       el = document.querySelectorAll('focusing-js')[0]
     } else {
-      el = document.querySelectorAll('focusing-js .main-container')[0]
+      el = document.querySelectorAll('focusing-js .fs-main-container')[0]
     }
     el.style[styleKey] = value
     this.styleObj[styleKey] = value
