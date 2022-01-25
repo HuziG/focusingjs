@@ -209,10 +209,23 @@ class FocusingJs {
     this.toggleContainerShow('open')
     const content = document.querySelectorAll(this.id)[0]
     this.focusingJsContainer.innerHTML = content.innerHTML
+
+    this.lockBody(true)
   }
 
   close () {
+    this.lockBody(false)
     this.toggleContainerShow('close')
+  }
+
+  lockBody(lock) {
+    const body = document.querySelectorAll('body')[0]
+    if (lock) {
+      this.originBodyStyle = body.style
+      body.style.overflow = 'hidden'
+    } else {
+      body.style = this.originBodyStyle
+    }
   }
 
   toggleContainerShow(state) {
