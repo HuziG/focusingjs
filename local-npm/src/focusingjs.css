@@ -89,6 +89,7 @@ focusing-js .edit-container{
     background-color: #fafafa;
     width: 30%;
     height: 100vh;
+    overflow-y: auto;
     padding: 0.5rem 1.5rem;
     box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
     -webkit-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);

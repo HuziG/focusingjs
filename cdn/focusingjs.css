@@ -80,6 +80,7 @@ focusing-js .edit-container{
     width: 30%;
     height: 100vh;
     padding: 0.5rem 1.5rem;
+    overflow-y: auto;
     box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
     -webkit-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
     -moz-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
