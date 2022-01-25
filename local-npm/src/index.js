@@ -33,8 +33,7 @@ const FocusingJsTemplate = `
           <div class="fs-label">主题色</div>
           <div class="fs-main-color-container">
             <div onClick="top.FocusingJsChangeBc(this, '#9DD2DC', '#333333')" class="fs-block"
-                 style="background-color: #9DD2DC; color: #333333;">
-              <span style="color: #17A34A">-</span>
+                 style="background-color: #9DD2DC; color: #333333;">Aa
             </div>
             <div onClick="top.FocusingJsChangeBc(this, '#F0D592', '#333333')" class="fs-block"
                  style="background-color: #F0D592; color: #333333;">Aa
@@ -123,7 +122,7 @@ class FocusingJs {
 
       handle(state)
 
-      function handle(state) {
+      function handle (state) {
         maskEle.style.display = state
         editEle.style.display = state
       }
@@ -312,6 +311,17 @@ class FocusingJs {
   setStyle() {
     for (let key in this.styleObj) {
       this.changeStyle(key, this.styleObj[key])
+
+      if (key === 'backgroundColor') {
+        setDefaultBg(this.styleObj[key])
+      }
+    }
+
+    function setDefaultBg(value) {
+      const index = ['#9DD2DC', '#F0D592', '#D1BFEB', '#FCF5ED', '#F5F5F5', '#363B3F', '#222222']
+        .findIndex(v => v === value)
+      const blocks = document.querySelectorAll('focusing-js .fs-main-color-container .fs-block')
+      blocks[index].innerHTML = `<span style="color: #17A34A">-</span>`
     }
   }
 
@@ -338,9 +348,10 @@ class FocusingJs {
     this.styleObj[styleKey] = value
   }
 
-  saveSetting () {
+  saveSetting() {
     localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(this.styleObj))
   }
 }
+
 
 module.exports = FocusingJs

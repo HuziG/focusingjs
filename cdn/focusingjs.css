@@ -79,12 +79,23 @@ focusing-js .fs-main-container{
     }
 }
 
+@keyframes focusingJsSlideInTop {
+    from {
+        transform: translate3d(0, 100%, 0);
+        visibility: visible;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+    }
+}
+
 focusing-js .fs-edit-container{
     display: none;
     position: fixed;
     z-index: 99999;
     right: 0;
-    top: 0;
+    bottom: 0;
     background-color: #fafafa;
     width: 30%;
     height: 100vh;
@@ -95,6 +106,17 @@ focusing-js .fs-edit-container{
     -moz-box-shadow: -6px 1px 12px -2px rgba(70,67,67,0.75);
     animation: focusingJsSlideInRight;
     animation-duration: .2s;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+    focusing-js .fs-edit-container{
+        width: 100%;
+        height: 30vh !important;
+        bottom: 0;
+        padding-bottom: 1rem;
+        animation: focusingJsSlideInTop;
+    }
 }
 
 focusing-js .fs-main-color-wrapper{
