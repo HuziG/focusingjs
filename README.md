@@ -52,6 +52,27 @@ fs.open()
 </script>  
 ```
 
+### ⚠️ 在 ssr 渲染模式下使用
+
+插件中涉及到了浏览器的 window 属性 ， 在 react的生命周期中 render() 阶段负责创建虚拟 dom 等等操作，
+render 及之前的阶段，并没有将组件渲染为实际的dom节点，所以无法获取浏览器 window 对象，需要改善写法
+
+```js
+// react class
+componentDidMount() 
+{
+  const fs = new FocusingJs('#id')
+  fs.open()
+}
+
+// react hook
+useEffect(() => {
+  const fs = new FocusingJs('#id')
+  fs.open()
+}, [])
+```
+
+
 [//]: # (# 安装视频)
 
 [//]: # (可以通过视频，更加直观地去学习使用)
