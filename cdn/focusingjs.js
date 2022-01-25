@@ -3,7 +3,7 @@ const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
       crossOrigin="anonymous">
   <link rel="stylesheet" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.bootcdn.net/ajax/libs/noUiSlider/15.5.0/nouislider.min.css"/>
+  
   <focusing-js class="focusingjs-container">
       <span
         class="iconfont icon-arrowleft"
