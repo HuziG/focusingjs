@@ -19,7 +19,7 @@ npm i focusingjs --save
 ```
 use
 ```js
-// in main.js import css file
+// first import css file
 import 'focusingjs.min.css'
 
 // at need use code location，import focusingjs
