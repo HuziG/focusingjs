@@ -24,7 +24,7 @@ npm i focusingjs --save
 使用
 ```js
 // 首先引入 css 样式文件
-import 'focusingjs.min.css'
+import 'focusingjs/dist/focusingjs.min.css'
 
 // 在需要调用的文件，引入 focusingjs
 import FocusingJs from 'focusingjs'
