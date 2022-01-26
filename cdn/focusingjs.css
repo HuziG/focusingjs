@@ -139,6 +139,10 @@ focusing-js .fs-edit-container .fs-label{
     font-weight: 500;
 }
 
+.fs-slider{
+    width: 100%;
+}
+
 focusing-js .fs-edit-container .fs-slider-item{
     margin-bottom: 2rem;
 }
