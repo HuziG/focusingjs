@@ -1,3 +1,5 @@
+<a href="./README-en.md">English Doc</a>
+
 ## 项目介绍
 
 FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源

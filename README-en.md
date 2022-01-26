@@ -1,30 +1,28 @@
-## 项目介绍
+<a href="./README.md">中文文档</a>
 
-FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
+## What is FocusingJs ?
 
-[//]: # ([试试看]&#40;https://spacingjs.com&#41;)
+FocusingJs is an implantable, immersive reading plugin, easy to use, and open source
 
-[//]: # (![]&#40;screenshot.png&#41;)
+compatible PC browser：Chrome，Firefox，Safar，Edge，IE11
 
-兼容常见的 PC 浏览器：Chrome，Firefox，Safar，Edge，QQ 浏览器，IE11
+### Support CodePen Trying
 
-### 支持 CodePen 体验
+[![CodePen](https://img.shields.io/badge/-CodePen-000000?style=for-the-badge&logo=CodePen&logoColor=ffffff)](https://codepen.io/huzig/pen/xxPxBdj)
 
-[![CodePen](https://img.shields.io/badge/-CodePen-000000?style=for-the-badge&logo=CodePen&logoColor=ffffff)](https://codepen.io/huzig/pen/qBVWezR?editors=1112)
-
-## 安装和使用
+## Install & Using
 
 ### npm
-安装
+install
 ```
 npm i focusingjs --save
 ```
-使用
+use
 ```js
-// 在 main.js 中引入 css 样式文件
+// in main.js import css file
 import 'focusingjs.min.css'
 
-// 在需要调用的文件，引入 focusingjs
+// at need use code location，import focusingjs
 import FocusingJs from 'focusingjs'
 
 const fs = new FocusingJs('#id')
@@ -34,14 +32,14 @@ fs.open()
 
 ### cdn
 ```html
-// 引入样式文件
+// link css file
 <link
     rel="stylesheet"
     type="text/css"
     href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.css"
 />
 
-// 引入 js 文件
+// import js file
 <script
     type="text/javascript"
     src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.js"
@@ -54,10 +52,10 @@ fs.open()
 </script>  
 ```
 
-### ⚠️ 在 ssr 渲染模式下使用，react 框架看这里
+### ⚠️ under ssr render mode
 
-插件中涉及到了浏览器的 **window** 属性 ， 在 react 的生命周期中 render() 阶段负责创建虚拟 dom 等等操作，
-render 及之前的阶段，并没有将组件渲染为实际的dom节点，所以**无法获取**浏览器 window 对象，需要改善写法，如下
+the plugin involve **window** attribue ， in react life, the render() need to create som dom，
+before the render ，it has no put the component render to actual dom，so the plugin cant get the browser **window** object，then we neet to change our methods，look these
 
 ```js
 // react class

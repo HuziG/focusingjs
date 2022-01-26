@@ -38,13 +38,13 @@ fs.open()
 <link
     rel="stylesheet"
     type="text/css"
-    href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.css"
+    href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@1.1.2/cdn/dist/focusingjs.min.css"
 />
 
 // 引入 js 文件
 <script
     type="text/javascript"
-    src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.js"
+    src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@1.1.2/cdn/dist/focusingjs.min.js"
 ></script>
 
 <script type="text/javascript">
