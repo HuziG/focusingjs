@@ -3,6 +3,14 @@
   "version": "2.0.0",
   "description": "studio includes cdn npm local test",
   "main": "n",
+  "keywords": [
+    "阅读",
+    "沉浸式",
+    "read",
+    "vue",
+    "react",
+    "js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

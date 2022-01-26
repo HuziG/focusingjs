@@ -1,9 +1,10 @@
+<a href="https://github.com/HuziG/focusingjs/blob/main/README-en.md">English doc</a>
+
 ## 项目介绍
 
 FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 [//]: # ([试试看]&#40;https://spacingjs.com&#41;)
-
 [//]: # (![]&#40;screenshot.png&#41;)
 
 兼容常见的 PC 浏览器：Chrome，Firefox，Safar，Edge，QQ 浏览器，IE11

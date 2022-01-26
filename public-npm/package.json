@@ -1,8 +1,16 @@
 {
   "name": "focusingjs",
-  "version": "2.1.3",
+  "version": "2.1.5",
   "description": "focusingjs",
   "main": "index.js",
+  "keywords": [
+    "阅读",
+    "沉浸式",
+    "read",
+    "vue",
+    "react",
+    "js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
