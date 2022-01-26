@@ -1,6 +1,6 @@
 {
   "name": "focusingjs",
-  "version": "1.0.0",
+  "version": "9.9.9",
   "description": "focusingjs",
   "main": "index.js",
   "scripts": {
@@ -9,8 +9,5 @@
     "uglifyjs": "uglifyjs ./src/index.js -c -m -o dist/index.min.js"
   },
   "author": "zhangxiaoming",
-  "license": "ISC",
-  "dependencies": {
-    "nouislider": "^15.5.0"
-  }
+  "license": "ISC"
 }

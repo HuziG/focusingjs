@@ -1,5 +1,3 @@
-const noUiSlider = require('nouislider')
-
 const FocusingJsTemplate = `
   <link rel="preload" href="//at.alicdn.com/t/font_3143830_bfpbyskko9i.woff2" as="font" type="font/woff2"
       crossOrigin="anonymous">
@@ -59,23 +57,23 @@ const FocusingJsTemplate = `
         <div id="fs-slider-container">
           <div class="fs-slider-item">
             <div class="fs-label">字体大小</div>
-            <div id="fs-fontSize-slider"></div>
+            <input class="fs-slider" id="fs-fontSize-slider" type="range" value="" min="0" max="100" step="20">
           </div>
           <div class="fs-slider-item">
             <div class="fs-label">行间距</div>
-            <div id="fs-lineHeight-slider"></div>
+            <input class="fs-slider" id="fs-lineHeight-slider" type="range" value="" min="0" max="100" step="20">
           </div>
           <div class="fs-slider-item">
             <div class="fs-label">版面宽度</div>
-            <div id="fs-width-slider"></div>
+            <input class="fs-slider" id="fs-width-slider" type="range" value="" min="30" max="100">
           </div>
           <div class="fs-slider-item">
             <div class="fs-label">字间距</div>
-            <div id="fs-letterSpacing-slider"></div>
+            <input class="fs-slider" id="fs-letterSpacing-slider" type="range" value="" min="0" max="100" step="20">
           </div>
           <div class="fs-slider-item">
             <div class="fs-label">字体粗细</div>
-            <div id="fs-fontWeight-slider"></div>
+            <input class="fs-slider" id="fs-fontWeight-slider" type="range" value="" min="0" max="100" step="20">
           </div>
         </div>
 
@@ -152,84 +150,13 @@ class FocusingJs {
       this.checkLocalStyle()
       this.setStyle()
 
-      setTimeout(() => {
-        this.initSlider()
-      }, 300)
+      // setTimeout(() => {
+      //   this.initSlider()
+      // }, 300)
     }
 
     this.focusingJsContainer = document.querySelectorAll('focusing-js .fs-main-container')[0]
     this.focusingJs = document.querySelectorAll('focusing-js')[0]
-  }
-
-  initSlider() {
-    try{
-      const that = this
-      const lineHeightSlider = document.querySelector('focusing-js #fs-lineHeight-slider'),
-        widthSlider = document.querySelector('focusing-js #fs-width-slider'),
-        fontSizeSlider = document.querySelector('focusing-js #fs-fontSize-slider'),
-        letterSpacingSlider = document.querySelector('focusing-js #fs-letterSpacing-slider'),
-        fontWeightSlider = document.querySelector('focusing-js #fs-fontWeight-slider')
-
-      createSlider([lineHeightSlider, widthSlider, letterSpacingSlider, fontWeightSlider, fontSizeSlider], {
-        start: 0,
-        step: 20,
-        behaviour: 'snap',
-        connect: [true, false],
-        range: {
-          'min': 0,
-          'max': 100
-        }
-      })
-
-      const lineHeightStep = { 0: '3rem', 20: '4.5rem', 40: '6rem', 60: '7.5rem', 80: '9rem', 100: '10rem' },
-        widthStep = { 0: '90%', 20: '80%', 40: '75%', 60: '70%', 80: '65%', 100: '60%' },
-        fontSizeStep = { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' },
-        letterSpacingStep = { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' },
-        fontWeightStep = { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 }
-
-      setSliderStep(lineHeightSlider, this.styleObj.lineHeight ,lineHeightStep)
-      setSliderStep(widthSlider, this.styleObj.width, widthStep)
-      setSliderStep(fontSizeSlider, this.styleObj.fontSize, fontSizeStep)
-      setSliderStep(letterSpacingSlider, this.styleObj.letterSpacing, letterSpacingStep)
-      setSliderStep(fontWeightSlider, this.styleObj.fontWeight, fontWeightStep)
-
-      lineHeightSlider.noUiSlider.on('slide', function(e) {
-        handleSetStyle('lineHeight', e, lineHeightStep)
-      });
-      widthSlider.noUiSlider.on('slide', function(e) {
-        handleSetStyle('width', e, widthStep)
-      });
-      fontSizeSlider.noUiSlider.on('slide', function(e) {
-        handleSetStyle('fontSize', e, fontSizeStep)
-      });
-      letterSpacingSlider.noUiSlider.on('slide', function(e) {
-        handleSetStyle('letterSpacing', e, letterSpacingStep)
-      });
-      fontWeightSlider.noUiSlider.on('slide', function(e) {
-        handleSetStyle('fontWeight', e, fontWeightStep)
-      });
-
-      function handleSetStyle(styleKey, e, value) {
-        e = Math.ceil(e[0])
-        that.changeStyle(styleKey, value[e])
-      }
-
-      function createSlider(eles, obj) {
-        eles.forEach(ele => {
-          noUiSlider.create(ele, obj);
-        })
-      }
-
-      function setSliderStep(slider, e, value) {
-        const newValue = {}
-        for (let key in value) {
-          newValue[value[key]] = key
-        }
-        slider.noUiSlider.set(newValue[e]);
-      }
-    } catch (e) {
-      console.error('initSlider error', e)
-    }
   }
 
   open () {
@@ -317,11 +244,66 @@ class FocusingJs {
       }
     }
 
+    this.setSlider()
+
     function setDefaultBg(value) {
       const index = ['#9DD2DC', '#F0D592', '#D1BFEB', '#FCF5ED', '#F5F5F5', '#363B3F', '#222222']
         .findIndex(v => v === value)
       const blocks = document.querySelectorAll('focusing-js .fs-main-color-container .fs-block')
       blocks[index].innerHTML = `<span style="color: #17A34A">-</span>`
+    }
+  }
+
+  setSlider() {
+    const lineHeightSlider = document.querySelector('focusing-js #fs-lineHeight-slider'),
+      widthSlider = document.querySelector('focusing-js #fs-width-slider'),
+      fontSizeSlider = document.querySelector('focusing-js #fs-fontSize-slider'),
+      letterSpacingSlider = document.querySelector('focusing-js #fs-letterSpacing-slider'),
+      fontWeightSlider = document.querySelector('focusing-js #fs-fontWeight-slider')
+
+    const that = this
+
+    lineHeightSlider.addEventListener('input', (event) => {
+      handleSetStyle('lineHeight', Number(event.target.value), lineHeightStep)
+    });
+    widthSlider.addEventListener('input', (event) => {
+      handleSetStyle('width', Number(event.target.value) + '%')
+    });
+    fontSizeSlider.addEventListener('input', (event) => {
+      handleSetStyle('fontSize', Number(event.target.value), fontSizeStep)
+    });
+    letterSpacingSlider.addEventListener('input', (event) => {
+      handleSetStyle('letterSpacing', Number(event.target.value), letterSpacingStep)
+    });
+    fontWeightSlider.addEventListener('input', (event) => {
+      handleSetStyle('fontWeight', Number(event.target.value), fontWeightStep)
+    });
+
+    const lineHeightStep = { 0: '3rem', 20: '4.5rem', 40: '6rem', 60: '7.5rem', 80: '9rem', 100: '10rem' },
+      fontSizeStep = { 0: '1rem', 20: '1.5rem', 40: '2rem', 60: '2.5rem', 80: '3rem', 100: '3.5rem' },
+      letterSpacingStep = { 0: '0.5rem', 20: '0.7rem', 40: '0.9rem', 60: '1.1rem', 80: '1.3rem', 100: '1.5rem' },
+      fontWeightStep = { 0: 300, 20: 400, 40: 500, 60: 600, 80: 700, 100: 800 }
+
+    setSliderStepValue(lineHeightSlider, this.styleObj.lineHeight ,lineHeightStep)
+    setSliderStepValue(fontSizeSlider, this.styleObj.fontSize, fontSizeStep)
+    setSliderStepValue(letterSpacingSlider, this.styleObj.letterSpacing, letterSpacingStep)
+    setSliderStepValue(fontWeightSlider, this.styleObj.fontWeight, fontWeightStep)
+    setWidthSliderValue(widthSlider, this.styleObj.width)
+
+    function setSliderStepValue(slider, e, value) {
+      const newValue = {}
+      for (let key in value) {
+        newValue[value[key]] = key
+      }
+      slider.setAttribute('value', newValue[e]);
+    }
+    function setWidthSliderValue(slider, value) {
+      // substr: 60% => 60
+      slider.setAttribute('value', value.substr(0, value.length - 1));
+    }
+
+    function handleSetStyle(styleKey, e, value) {
+      that.changeStyle(styleKey, value ? value[e] : e)
     }
   }
 

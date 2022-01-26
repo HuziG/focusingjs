@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import 'focusingjs/dist/focusingjs.min.css'
+import 'focusingjs/src/focusingjs.css'
 
 Vue.config.productionTip = false
 
