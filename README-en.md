@@ -6,6 +6,10 @@ FocusingJs is an implantable, immersive reading plugin, easy to use, and open so
 
 compatible PC browser：Chrome，Firefox，Safar，Edge，IE11
 
+Two lines of simple code for implement minimalist reader functionality
+
+![example image](./assets/en.gif)
+
 ### Support CodePen Trying
 
 [![CodePen](https://img.shields.io/badge/-CodePen-000000?style=for-the-badge&logo=CodePen&logoColor=ffffff)](https://codepen.io/huzig/pen/xxPxBdj)
