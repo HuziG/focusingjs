@@ -12,9 +12,7 @@ FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 简单两行代码，即可实现简约的阅读器功能
 
-[//]: # (![这是图片]&#40;./assets/cn.gif&#41;)
-
-<video src="./assets/movie.mp4" width="800px" height="600px" controls="controls"></video>
+![这是图片](./assets/cn.gif)
 
 ### 支持 CodePen 体验
 
