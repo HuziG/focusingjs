@@ -10,6 +10,10 @@ FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 兼容常见的 PC 浏览器：Chrome，Firefox，Safar，Edge，QQ 浏览器，IE11
 
+简单两行代码，即可实现简约的阅读器功能
+
+![这是图片](https://haoshi-file.oss-cn-shanghai.aliyuncs.com/image/iShot2022-01-28-09.50.19.gif)
+
 ### 支持 CodePen 体验
 
 [![CodePen](https://img.shields.io/badge/-CodePen-000000?style=for-the-badge&logo=CodePen&logoColor=ffffff)](https://codepen.io/huzig/pen/qBVWezR?editors=1112)
