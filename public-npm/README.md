@@ -1,10 +1,11 @@
-<a href="https://github.com/HuziG/focusingjs/blob/main/README-en.md">English doc</a>
+<a href="./README-en.md">English Doc</a>
 
 ## 项目介绍
 
 FocusingJs 是一款可植入的沉浸式阅读插件，易用，开源
 
 [//]: # ([试试看]&#40;https://spacingjs.com&#41;)
+
 [//]: # (![]&#40;screenshot.png&#41;)
 
 兼容常见的 PC 浏览器：Chrome，Firefox，Safar，Edge，QQ 浏览器，IE11
@@ -22,34 +23,35 @@ npm i focusingjs --save
 ```
 使用
 ```js
-// 在 main.js 中引入 css 样式文件
+<div id="#article"> 文章内容 ...... </div> 
+
+// 入口文件引入 css 样式文件
 import 'focusingjs/dist/focusingjs.min.css'
 
-// 在需要调用的文件，引入 focusingjs
 import FocusingJs from 'focusingjs'
 
-const fs = new FocusingJs('#id')
+const fs = new FocusingJs('#article')
 
 fs.open()
 ```
 
 ### cdn
 ```html
-// 引入样式文件
+<div id="#article"> 文章内容 ...... </div>
+
 <link
     rel="stylesheet"
     type="text/css"
-    href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@1.1.2/cdn/dist/focusingjs.min.css"
+    href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.css"
 />
 
-// 引入 js 文件
 <script
     type="text/javascript"
-    src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs@1.1.2/cdn/dist/focusingjs.min.js"
+    src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.js"
 ></script>
 
 <script type="text/javascript">
-  const fs = new FocusingJs('#id')
+  const fs = new FocusingJs('#article')
 
   fs.open()
 </script>  

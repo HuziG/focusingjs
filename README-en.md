@@ -19,34 +19,35 @@ npm i focusingjs --save
 ```
 use
 ```js
-// first import css file
-import 'focusingjs.min.css'
+<div id="#article"> content ...... </div>
 
-// at need use code location，import focusingjs
+// enter file import css
+import 'focusingjs/dist/focusingjs.min.css'
+
 import FocusingJs from 'focusingjs'
 
-const fs = new FocusingJs('#id')
+const fs = new FocusingJs('#article')
 
 fs.open()
 ```
 
 ### cdn
 ```html
-// link css file
+<div id="#article"> content ...... </div>
+
 <link
     rel="stylesheet"
     type="text/css"
     href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.css"
 />
 
-// import js file
 <script
     type="text/javascript"
     src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.js"
 ></script>
 
 <script type="text/javascript">
-  const fs = new FocusingJs('#id')
+  const fs = new FocusingJs('#article')
 
   fs.open()
 </script>  

@@ -23,34 +23,35 @@ npm i focusingjs --save
 ```
 使用
 ```js
-// 首先引入 css 样式文件
+<div id="#article"> 文章内容 ...... </div> 
+
+// 入口文件引入 css 样式文件
 import 'focusingjs/dist/focusingjs.min.css'
 
-// 在需要调用的文件，引入 focusingjs
 import FocusingJs from 'focusingjs'
 
-const fs = new FocusingJs('#id')
+const fs = new FocusingJs('#article')
 
 fs.open()
 ```
 
 ### cdn
 ```html
-// 引入样式文件
+<div id="#article"> 文章内容 ...... </div>
+
 <link
     rel="stylesheet"
     type="text/css"
     href="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.css"
 />
 
-// 引入 js 文件
 <script
     type="text/javascript"
     src="https://cdn.jsdelivr.net/gh/HuziG/focusingjs/cdn/dist/focusingjs.min.js"
 ></script>
 
 <script type="text/javascript">
-  const fs = new FocusingJs('#id')
+  const fs = new FocusingJs('#article')
 
   fs.open()
 </script>  

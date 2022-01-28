@@ -1,6 +1,6 @@
 {
   "name": "focusingjs",
-  "version": "2.1.6",
+  "version": "2.1.8",
   "description": "focusingjs",
   "main": "index.js",
   "keywords": [
@@ -11,6 +11,10 @@
     "react",
     "js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HuziG/focusingjs.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
